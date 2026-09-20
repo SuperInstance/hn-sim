@@ -231,13 +231,20 @@ def verify_heldout_manifest(repo_root: Path) -> dict[str, str]:
 
 
 def heldout_files_match_manifest(repo_root: Path) -> bool:
-    """True iff locally-present held-out personas hash-match the commitment."""
+    """True iff locally-present held-out personas hash-match the commitment.
+
+    The held-out files live OUTSIDE the tree by design (see the manifest
+    header): a fresh clone has none, and that is a locked state, not a
+    violation — content is bound by the hash commitment at generation time
+    (tools/generate_heldout.py). So absence is fine; PRESENCE is what must
+    hash-match, including files not named in the manifest (tamper surface).
+    """
     entries = verify_heldout_manifest(repo_root)
     d = repo_root / "heldout" / "personas"
     present = {p.stem: p for p in d.glob("*.json")} if d.is_dir() else {}
-    for pid, digest in entries.items():
-        if pid not in present:
+    for pid, path in present.items():
+        if pid not in entries:  # uncommitted persona next to the commitment
             return False
-        if sha256_file(present[pid]) != digest:
+        if sha256_file(path) != entries[pid]:
             return False
     return True

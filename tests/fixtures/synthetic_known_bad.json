@@ -1,0 +1,81 @@
+{
+ "provenance": {
+  "origin": "SYNTHETIC, hand-authored kill-probe fixture — NOT HN data, NOT flagged/removed-post data",
+  "purpose": "Capability probe for kill phrases. The real 40-post Show-HN sample (show_hn_sample.json) has 0 kill firings — honestly reported as 'untested-not-proven', since a sample of legitimate posts cannot prove the kill mechanism works. This fixture asks the narrower question: CAN any persona's kill phrase fire at all, does each designed-bad post get killed, and do the personas spare a well-evidenced post and a paraphrase?",
+  "authored": "2026-09-21",
+  "honest_limit": "Synthetic posts embed the kill phrases verbatim, so this probes mechanism liveness, not detection subtlety. A paraphrase post (edge-01) is included and must NOT be killed — the mechanism is literal today; that is a pinned finding, not a silent gap. Replace with a real flagged/removed Show-HN sample when one is obtainable, then re-pin.",
+  "license_note": "Written for this repo; no external text copied."
+ },
+ "posts": [
+  {
+   "objectID": "syn-bad-01-wrapper",
+   "title": "Show HN: AI Wrapper Pro",
+   "selftext": "Show HN: I built a tool. It's just a thin wrapper around the OpenAI API with a new coat of paint. Yet another chatbot UI. Paid tier coming."
+  },
+  {
+   "objectID": "syn-bad-02-secret-sauce",
+   "title": "Show HN: RankBoost — SEO engine",
+   "selftext": "Our proprietary algorithm can't be disclosed, but trust me, the secret sauce delivers rankings. Just try it and believe me."
+  },
+  {
+   "objectID": "syn-bad-03-trust-us",
+   "title": "Show HN: CloudNotes",
+   "selftext": "All your notes encrypted in our cloud. We never sell your data — trust us with your documents. Enterprise-grade trust."
+  },
+  {
+   "objectID": "syn-bad-04-military-grade",
+   "title": "Show HN: VaultPass",
+   "selftext": "Password manager with military-grade encryption and bank-level security. Practically unhackable. Secure because we say so."
+  },
+  {
+   "objectID": "syn-bad-05-rocket-emoji",
+   "title": "Show HN: FlowPilot 🚀",
+   "selftext": "Supercharge your team's productivity and unlock the power of AI. 🚀 The all-in-one dashboard you didn't know you needed."
+  },
+  {
+   "objectID": "syn-bad-06-fast-paced",
+   "title": "Show HN: NextGenCRM",
+   "selftext": "In today's fast-paced world, sales teams need a next-generation, cutting edge platform. Before we dive in, let me explain why this matters."
+  },
+  {
+   "objectID": "syn-bad-07-magic",
+   "title": "Show HN: MatchMaker AI",
+   "selftext": "Our matching works like magic — the algorithm just knows. A patented breakthrough in compatibility. No benchmarks yet, but soon."
+  },
+  {
+   "objectID": "syn-bad-08-synergy",
+   "title": "Show HN: SynergyBoard",
+   "selftext": "It's like X but for Y, powered by Z. A synergistic, holistic approach to project management that will revolutionize how teams connect."
+  },
+  {
+   "objectID": "syn-bad-09-demo-soon",
+   "title": "Show HN: PixelForge (early)",
+   "selftext": "Cool sprite editor. Screenshots coming soon, demo unavailable for now, video coming next week. Works on my machine — you wouldn't understand the setup."
+  },
+  {
+   "objectID": "syn-bad-10-poc",
+   "title": "Show HN: weekend hack",
+   "selftext": "Just a proof of concept I threw this together last night. Anyone could build this, honestly. Possibilities are endless."
+  },
+  {
+   "objectID": "syn-bad-11-orders-of-magnitude",
+   "title": "Show HN: FastDB",
+   "selftext": "Our storage engine is orders of magnitude faster. Significantly better than Postgres in every dimension. Dramatic improvement, trust us."
+  },
+  {
+   "objectID": "syn-good-01-evidenced-maker",
+   "title": "Show HN: q16 — exact rational trajectories",
+   "selftext": "Fixed-point rational codec over integer lineage. 31/31 tests green, deterministic seed, builds reproducible from source. Open source, no sign up. Benchmarked on 1,000,000 integer steps with the numbers in the README."
+  },
+  {
+   "objectID": "syn-good-02-evidenced-domain",
+   "title": "Show HN: clinc-eval — counted-scale intent checks",
+   "selftext": "Eval harness over CLINC150: 23,700 labeled utterances, per-class F1 published for all 150 classes, CI re-runs nightly on 2,400 held-out inputs. Costs measured: $24.57 per million calls on the pinned provider."
+  },
+  {
+   "objectID": "syn-edge-01-paraphrase",
+   "title": "Show HN: another take on local note search",
+   "selftext": "A small layer over SQLite FTS5. Not revolutionary, just a focused tool with tests and a public repo. No hype, measured cold-start numbers inside."
+  }
+ ]
+}
