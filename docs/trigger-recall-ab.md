@@ -159,3 +159,28 @@ kills 0/40; no trigger over the 50% tripwire; new top trigger is
 Lesson: a trigger's firing RATE was the watch item, but the watch paid off
 on firing SEMANTICS — rate stayed under the tripwire while a third of the
 firings were the wrong claim. Tripwires catch over-firing, not misfiring.
+
+## Recalibration #3 (2026-09-21): measurement fix — posts, not hits
+
+Watch item from recalibration #2 ("new top trigger
+`front_page_regular: I (built|made|wrote|hacked)` at 20%") examined: the
+A/B report counted evidence **hits** per trigger while labeling the number
+"posts". That trigger fires twice on two posts (Ifso, the Mac window
+switcher), so it read 8/40 = 20% when it actually touches **6/40 = 15%**
+of the sample. A trigger firing N times on one post does not fire on N
+posts.
+
+Per-firing read of the 6 posts: all genuine first-person maker claims —
+Bailout ("i made bailout for a pretty specific problem"), Judge Jev ("I
+made this little game"), A1Lab ("I built A1Lab"), Human Benchmark (title:
+"so I built it"), Ifso (x2 — one is a dogfooding narrative, "if I made some
+key financial decisions", borderline but real product usage), Mac switcher
+(x2). No misfire, no persona recalibration warranted — the trigger is
+healthy. The bug was in the meter, not the audience.
+
+Fix shipped: `top_triggers` now reports distinct `posts` + `hits` +
+post-based `share`, and the 50% generic tripwire is computed on post share
+(its actual semantic: "fires on >50% of posts carries no information").
+Pinned by `test_top_trigger_counts_posts_not_hits`. Re-pinned headline:
+top trigger is 15%, not 20% — the "rising watch item" from recalibration #2
+was a measurement ghost.

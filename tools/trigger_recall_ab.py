@@ -49,7 +49,8 @@ def run(fixture: Path = FIXTURE) -> dict:
     personas = load_personas(Path(__file__).resolve().parent.parent / "personas", allow_heldout=False)
 
     per_persona: dict[str, dict] = {}
-    trigger_fires: Counter = Counter()
+    trigger_fires: Counter = Counter()  # evidence HITS per trigger pattern
+    trigger_posts: dict[str, set] = {}  # distinct post objectIDs per trigger pattern
     covered_posts: set[str] = set()
     kill_posts: set[str] = set()
 
@@ -66,7 +67,9 @@ def run(fixture: Path = FIXTURE) -> dict:
                     hit_any = True
                     evidence_total += len(evidence)
                     for h in evidence:
-                        trigger_fires[f"{persona.id}:{h.pattern}"] += 1
+                        key = f"{persona.id}:{h.pattern}"
+                        trigger_fires[key] += 1
+                        trigger_posts.setdefault(key, set()).add(post["objectID"])
                 if kills:
                     kill_hits += len(kills)
                     kill_posts.add(post["objectID"])
@@ -80,12 +83,25 @@ def run(fixture: Path = FIXTURE) -> dict:
         }
 
     n = len(posts)
+    # Goodhart tripwire is POST-based: a trigger that fires on >50% of posts
+    # carries no information. (Recalibration #3 fix: this was computed on hit
+    # counts, so a trigger firing twice on one post overstated its reach —
+    # e.g. "I (built|made|wrote|hacked)" read 8/40=20% when it actually
+    # touches 6/40=15% of the sample.)
+    trigger_post_counts = {pat: len(ids) for pat, ids in trigger_posts.items()}
     generic = {
-        pat: c for pat, c in trigger_fires.items() if c / n > GENERIC_THRESHOLD
+        pat: c for pat, c in trigger_post_counts.items() if c / n > GENERIC_THRESHOLD
     }
     top_triggers = [
-        {"trigger": pat, "posts": c, "share": round(c / n, 3)}
-        for pat, c in trigger_fires.most_common(10)
+        {
+            "trigger": pat,
+            "posts": trigger_post_counts[pat],
+            "hits": trigger_fires[pat],
+            "share": round(trigger_post_counts[pat] / n, 3),
+        }
+        for pat, _ in sorted(
+            trigger_post_counts.items(), key=lambda kv: kv[1], reverse=True
+        )[:10]
     ]
     return {
         "sample_size": n,
@@ -119,9 +135,9 @@ def main() -> None:
     print("\nper persona (posts with >=1 evidence hit / total evidence / kills):")
     for pid, s in sorted(report["per_persona"].items()):
         print(f"  {pid:20s} {s['posts_with_evidence']:3d}  {s['evidence_hits_total']:4d}  {s['kill_hits_total']:3d}")
-    print("\ntop triggers (pattern -> posts fired on):")
+    print("\ntop triggers (pattern -> posts fired on [hits]):")
     for t in report["top_triggers"]:
-        print(f"  {t['share']:5.1%}  {t['trigger']}")
+        print(f"  {t['share']:5.1%}  {t['trigger']}  [{t['hits']} hits]")
     if report["generic_triggers_over_half"]:
         print("\nGENERIC (fire on >50% of sample — carry no information):")
         for pat, c in sorted(report["generic_triggers_over_half"].items()):
