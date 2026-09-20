@@ -1,0 +1,78 @@
+{
+  "id": "domain_expert",
+  "name": "The Domain Expert",
+  "stance": "Has spent a decade in this corner of the field. Catches hand-waving at fifty paces.",
+  "reach_scale": 0.8,
+  "variants": [
+    {
+      "id": "expert-v1",
+      "note": "checks every strong claim against the literature they carry in their head",
+      "base_propensity": 0.32,
+      "trigger_patterns": [
+        {"pattern": "state of the art|SOTA|provably (correct|optimal)|theorem", "weight": -0.16, "label": "big words, checking citations…"},
+        {"pattern": "\\[[0-9]+\\]|\\(\\d{4}\\)|arxiv|doi\\.org|proceedings", "weight": 0.22, "label": "cites the actual literature"},
+        {"pattern": "we (invented|discovered|pioneered)", "weight": -0.22, "label": "claims priority — the field remembers otherwise"},
+        {"pattern": "prior (work|art)|related work|compared to", "weight": 0.18, "label": "knows what came before"},
+        {"pattern": "\\bO\\(n( log n)?\\)|\\bNP[- ]?hard|\\bΩ\\(|complexity", "weight": 0.14, "label": "speaks the native notation"},
+        {"pattern": "novel|first ever|unique approach", "weight": -0.16, "label": "novelty inflation"}
+      ],
+      "kill_phrase_patterns": ["works like magic", "the algorithm just knows", "our patented breakthrough"],
+      "comment_templates": [
+        "Worked in this area since before it was hot. {file} §{section}: \"{quote}\" — {label}. {verdict_phrase_cap}.",
+        "Claim audit on {file} §{section} (\"{quote}\"): {label}. {verdict_phrase_cap}.",
+        "{file} §{section}: \"{quote}\". {label_cap}. The field will fact-check this, so I did first."
+      ],
+      "kill_comment_template": "'The algorithm just knows' is not a mechanism, it's an admission you haven't found it yet.",
+      "verdict_phrase_up": "Solid enough to defend in the comments",
+      "verdict_phrase_down": "The experts in the thread will eat this alive"
+    },
+    {
+      "id": "expert-v2",
+      "note": "reads the evaluation section first, if there is one",
+      "base_propensity": 0.30,
+      "trigger_patterns": [
+        {"pattern": "evaluation|we (measured|evaluated|tested on)|dataset", "weight": 0.20, "label": "evaluated on something that isn't the author's laptop"},
+        {"pattern": "baseline|ablation|compared against", "weight": 0.22, "label": "compares against a baseline like a grown-up"},
+        {"pattern": "\\d+(\\.\\d+)?\\s?% (accuracy|improvement|better)", "weight": -0.12, "label": "a percentage with no error bars and no baseline"},
+        {"pattern": "benchmark (suite|results?)|leaderboard", "weight": 0.14, "label": "submits to public measurement"},
+        {"pattern": "hand-?tuned|carefully (tuned|selected)", "weight": -0.10, "label": "the method is the tuning"},
+        {"pattern": "reproducib|open (data|benchmark)|code (and|with) data", "weight": 0.16, "label": "ships the reproduction"}
+      ],
+      "kill_phrase_patterns": ["significantly better", "dramatic improvement", "orders of magnitude (faster|better)[]a-z]*$"],
+      "comment_templates": [
+        "Evaluation first: {file} §{section} — \"{quote}\". {label_cap}. {verdict_phrase_cap}.",
+        "Where's the baseline? {file} §{section}: \"{quote}\" ({label}). {verdict_phrase_cap}.",
+        "{file} §{section}: \"{quote}\". {label_cap}. The eval section decides my vote."
+      ],
+      "kill_comment_template": "'Significantly better' with n=1 and no variance reported. That's not an evaluation, that's a mood.",
+      "verdict_phrase_up": "Methodologically sound, upvoted",
+      "verdict_phrase_down": "Would not pass a reviewer with coffee"
+    },
+    {
+      "id": "expert-v3",
+      "note": "listens for invented jargon and confused terminology",
+      "base_propensity": 0.33,
+      "trigger_patterns": [
+        {"pattern": "(neural|quantum|blockchain|ai)[- ]?(enhanced|powered|native)", "weight": -0.18, "label": "buzzword adhesive holding the pitch together"},
+        {"pattern": "concretely|formally|definition|\\blet\\b .{0,40}(be|denote)", "weight": 0.18, "label": "defines terms instead of vibing"},
+        {"pattern": "(confuses?|conflates?) .{0,30}(with)", "weight": -0.20, "label": "terminology wandering between concepts"},
+        {"pattern": "in other words|that is to say|equivalently", "weight": 0.12, "label": "offers multiple routes to the same understanding"},
+        {"pattern": "patent|trade secret|proprietary method", "weight": -0.14, "label": "claims knowledge it won't show"},
+        {"pattern": "corollary|lemma|it follows that", "weight": 0.14, "label": "argues in the field's native logic"}
+      ],
+      "kill_phrase_patterns": ["it's like X but for Y, powered by Z", "synergistic", "holistic approach"],
+      "comment_templates": [
+        "Terminology check on {file} §{section}: \"{quote}\" — {label}. {verdict_phrase_cap}.",
+        "{file} §{section}: \"{quote}\". {label_cap}. Precision is respect for the reader's time.",
+        "I've read the papers this cites. {file} §{section} (\"{quote}\"): {label}. {verdict_phrase_cap}."
+      ],
+      "kill_comment_template": "'Synergistic' — when a README says that, it means no two parts work together on purpose. Flag.",
+      "verdict_phrase_up": "Precise, cited, upvoted",
+      "verdict_phrase_down": "Hand-waving detected at range"
+    }
+  ],
+  "missing_advice": [
+    {"if_absent": ["citation", "arxiv", "prior", "related work"], "advice": "Name one prior work and say how you differ. The Expert upvotes people who know where they stand in the field."},
+    {"if_absent": ["baseline", "compared", "evaluation"], "advice": "Add a one-line comparison against the obvious incumbent. Silence on comparison reads as 'we lost the bake-off'."}
+  ]
+}
