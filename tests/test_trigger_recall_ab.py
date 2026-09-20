@@ -23,14 +23,20 @@ FIXTURE = REPO_ROOT / "tests" / "fixtures" / "show_hn_sample.json"
 FIXTURE_SHA256 = "e1a3f59d06f2bab223108a806aba9924224550e6eb832a887982f87a0b48902a"
 
 # Baseline measured 2026-09-21 on the fixture above (see docs/trigger-recall-ab.md).
-BASELINE_COVERAGE_SHARE = 0.25
+# Recalibration #1 (2026-09-21): title added as a first-class evidence doc in
+# the A/B harness (28/40 real posts are title-only — selftext-only matching
+# made receipt-checkers deaf by construction) and skeptic/domain_expert
+# patterns recalibrated to the genre. front_page_regular's tautological
+# "Show HN" trigger removed (tripped the generic tripwire once titles matched).
+# Pins below are the DELIBERATELY re-based recalibration numbers.
+BASELINE_COVERAGE_SHARE = 0.6
 BASELINE_POSTS_WITH_EVIDENCE = {
-    "domain_expert": 2,
+    "domain_expert": 10,
     "front_page_regular": 8,
-    "maker": 4,
-    "security_reader": 4,
-    "skeptic": 1,
-    "tired_dev": 4,
+    "maker": 7,
+    "security_reader": 7,
+    "skeptic": 12,
+    "tired_dev": 5,
 }
 
 
@@ -42,7 +48,7 @@ def test_recall_baseline() -> None:
     report = run(FIXTURE)
     assert report["sample_size"] == 40
     assert report["coverage_any_persona"]["share"] == BASELINE_COVERAGE_SHARE
-    assert report["coverage_any_persona"]["posts"] == 10
+    assert report["coverage_any_persona"]["posts"] == 24
     got = {pid: s["posts_with_evidence"] for pid, s in report["per_persona"].items()}
     assert got == BASELINE_POSTS_WITH_EVIDENCE
 

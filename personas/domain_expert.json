@@ -35,6 +35,9 @@
         {"pattern": "baseline|ablation|compared against", "weight": 0.22, "label": "compares against a baseline like a grown-up"},
         {"pattern": "\\d+(\\.\\d+)?\\s?% (accuracy|improvement|better)", "weight": -0.12, "label": "a percentage with no error bars and no baseline"},
         {"pattern": "benchmark (suite|results?)|leaderboard", "weight": 0.14, "label": "submits to public measurement"},
+        {"pattern": "\\b\\d[\\d,]{2,}\\s+(?:\\w+\\s+)?inputs?\\b", "weight": 0.20, "label": "evaluates at counted scale, not vibes"},
+        {"pattern": "\\$\\d+(?:\\.\\d+)?\\s*(?:per|/)\\s*(?:million|1k|k\\b)", "weight": 0.14, "label": "quotes measured unit economics"},
+        {"pattern": "\\b\\d+(?:\\.\\d+)?k\\s+(?:sprite|pixel|line|row|cell|token)", "weight": 0.12, "label": "quotes a concrete hardware/software spec"},
         {"pattern": "hand-?tuned|carefully (tuned|selected)", "weight": -0.10, "label": "the method is the tuning"},
         {"pattern": "reproducib|open (data|benchmark)|code (and|with) data", "weight": 0.16, "label": "ships the reproduction"}
       ],
@@ -56,6 +59,9 @@
         {"pattern": "(neural|quantum|blockchain|ai)[- ]?(enhanced|powered|native)", "weight": -0.18, "label": "buzzword adhesive holding the pitch together"},
         {"pattern": "concretely|formally|definition|\\blet\\b .{0,40}(be|denote)", "weight": 0.18, "label": "defines terms instead of vibing"},
         {"pattern": "(confuses?|conflates?) .{0,30}(with)", "weight": -0.20, "label": "terminology wandering between concepts"},
+        {"pattern": "\\b(?:deterministic|reproducible|verifiable)\\b", "weight": 0.16, "label": "commits to behavior a reviewer can re-run"},
+        {"pattern": "\\bAI[- ](?:app|agent|platform|hack|tool|builder)s?\\b", "weight": -0.12, "label": "AI as category adhesive in the title"},
+        {"pattern": "\\b(?:no sign ?up|without (an )?account|no login)\\b", "weight": 0.10, "label": "removes a whole trust surface by design"},
         {"pattern": "in other words|that is to say|equivalently", "weight": 0.12, "label": "offers multiple routes to the same understanding"},
         {"pattern": "patent|trade secret|proprietary method", "weight": -0.14, "label": "claims knowledge it won't show"},
         {"pattern": "corollary|lemma|it follows that", "weight": 0.14, "label": "argues in the field's native logic"}
