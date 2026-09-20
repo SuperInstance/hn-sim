@@ -1,0 +1,290 @@
+{
+ "posts": [
+  {
+   "created_at": "2026-09-20T19:53:01Z",
+   "objectID": "49779400",
+   "selftext": "",
+   "title": "Show HN: Roffume \u2013 Add fragrance to your resume with roff",
+   "url": "https://github.com/sebastiancarlos/roffume"
+  },
+  {
+   "created_at": "2026-09-20T19:48:01Z",
+   "objectID": "49779362",
+   "selftext": "",
+   "title": "Show HN: A browser MMO designed to be played by scripts, not people",
+   "url": "https://space-core.at/"
+  },
+  {
+   "created_at": "2026-09-20T19:29:19Z",
+   "objectID": "49779155",
+   "selftext": "",
+   "title": "Show HN: Emetgate \u2013 a verification gate between an LLM and your source tree",
+   "url": "https://github.com/emetgate/emetgate"
+  },
+  {
+   "created_at": "2026-09-20T19:17:57Z",
+   "objectID": "49779037",
+   "selftext": "",
+   "title": "Show HN: SubCrisp, a free subscription tracker that shows what cancelling saves",
+   "url": "https://subcrisp.com/"
+  },
+  {
+   "created_at": "2026-09-20T19:11:57Z",
+   "objectID": "49778966",
+   "selftext": "",
+   "title": "Show HN: NiceTryGPT and CTF and riduzione degli shortcut LLM",
+   "url": "https://github.com/aleff-github/NiceTryGPT"
+  },
+  {
+   "created_at": "2026-09-20T19:07:07Z",
+   "objectID": "49778923",
+   "selftext": "",
+   "title": "Show HN: Agentic OS: one Rust Linux binary, one SQLite and sandbox per actor",
+   "url": "https://github.com/mmeyerlein/meclaw/"
+  },
+  {
+   "created_at": "2026-09-20T18:38:25Z",
+   "objectID": "49778621",
+   "selftext": "I started building a DB of SaaS pricing pages and pricing history when I needed to rework the pricing of my old company. Now its also available for everyone.",
+   "title": "Show HN: SaaS Pricing Tracker",
+   "url": "https://tracker.kimsalmi.com/"
+  },
+  {
+   "created_at": "2026-09-20T18:25:29Z",
+   "objectID": "49778488",
+   "selftext": "I\u2019ve been using this as my only terminal since January, adding things I needed and keeping what worked well. I didn\u2019t expect so many useful additions to work so well with a terminal and Electron as the base. I still check out agents in desktop apps and IDEs from time to time, curious to see what they offer. But with this terminal, I don\u2019t want to work any other way. Let me know what additions are important to you.",
+   "title": "Show HN: 8 months extending my terminal to handle all my work with all agents",
+   "url": "https://github.com/albertwujj/agent-term"
+  },
+  {
+   "created_at": "2026-09-20T18:14:58Z",
+   "objectID": "49778390",
+   "selftext": "hey hn, i made bailout for a pretty specific problem. you boot a fresh vm and want an agent to help get it set up, except you dont have your agent set up yet. no gh, no config, no api key handy. might not even have codex &#x2F; claude code &#x2F; opencode curled and loaded. or you already have a setup but opencode &#x2F; pi &#x2F; whatever stopped launching, and the thing you&#x27;d normally ask to fix it is the thing that&#x27;s broken. for me, and this is embarrassing, but at work we switched from per-dev keys to oai &#x2F; ant to just an internal litellm router, which required configuring opencode. i use opencode2 which can dynamically reload its config. well, while rewriting the config to work with self hosted litellm, it broke, and i was stranded w&#x2F; no coding agent. bailout is for that sort of thing, like break glass, agent pls fix. think of bailout like a spare agent for these sorts of things. install it, ask it to set up the machine or fix your usual tools, then remove it. the idea is \u201cthe harness meant to be deleted.\u201d i like having a tool whose last useful action can be uninstalling itself. plus a play on hinge, the whole app meant to be deleted. you install it with `curl -fsSL https:&#x2F;&#x2F;bailout.dev&#x2F;install.sh | bash` and run `bailout`. no account or api key needed for bailout. the tools it helps you set up still need your own accounts, obviously. it can hand you the terminal for those logins without sending what you type to the model. the client is a rust binary, about 639 KB uncompressed on apple silicon. it also runs on linux x64 and arm64. bash is the only tool. it can inspect files, edit configs, install things, curl stuff, etc. commands run automatically with your user&#x27;s permissions, so it has the same access you do in that shell. i got inspired by vercel&#x27;s fx.sh in terms of minimalism and size and all that. the hosted router uses free models and switches between available ones when a request fails. there are shared limits, ",
+   "title": "Show HN: Bailout \u2013 The coding agent meant to be deleted",
+   "url": "https://github.com/storozhenko98/bailout"
+  },
+  {
+   "created_at": "2026-09-20T18:10:44Z",
+   "objectID": "49778358",
+   "selftext": "",
+   "title": "Show HN: System One Harness (SOH), the harness for System One models",
+   "url": "https://github.com/HarnessRouter/SystemOneHarness"
+  },
+  {
+   "created_at": "2026-09-20T18:08:58Z",
+   "objectID": "49778331",
+   "selftext": "",
+   "title": "Show HN: AliasFleet \u2013 Email aliases with an in-app composer and telemetry",
+   "url": "https://www.aliasfleet.com"
+  },
+  {
+   "created_at": "2026-09-20T18:03:49Z",
+   "objectID": "49778268",
+   "selftext": "This is just a simple game with procedurally generated legal scenarios where you are accused of a crime and are given 5 pieces of evidence associated with said* crime. You then have 3 minutes to mount a defense to convince Judge Jev you didn&#x27;t commit the crime. Sometimes the evidence has glaring gaps, other times not so much. I made this little game initially as an experiment for Jevs logical abilities, but I actually had a lot of fun and decided it was worth sharing.",
+   "title": "Show HN: Judge Jev \u2013 Can you convince Jev of your innocence?",
+   "url": "https://judge-jev.com/"
+  },
+  {
+   "created_at": "2026-09-20T17:55:21Z",
+   "objectID": "49778191",
+   "selftext": "",
+   "title": "Show HN: Testing a non-generative decision model on 5,500 CLINC150 inputs",
+   "url": "https://github.com/chr-kelly/jev-cookbook"
+  },
+  {
+   "created_at": "2026-09-20T17:54:30Z",
+   "objectID": "49778185",
+   "selftext": "",
+   "title": "Show HN: I inadvertently built an English to Bash transpiler",
+   "url": "https://github.com/gioblu/NPC-Forge/blob/main/npcs/termy/README.md"
+  },
+  {
+   "created_at": "2026-09-20T17:49:11Z",
+   "objectID": "49778137",
+   "selftext": "",
+   "title": "Show HN: TetherPHP \u2013 a small PHP framework designed for agents and humans",
+   "url": "https://tetherphp.com/"
+  },
+  {
+   "created_at": "2026-09-20T17:44:27Z",
+   "objectID": "49778087",
+   "selftext": "",
+   "title": "Show HN: Scrolling Text Generator \u2013 marquee, ticker and credits in the browser",
+   "url": "https://scrollingtextgenerator.space"
+  },
+  {
+   "created_at": "2026-09-20T17:37:06Z",
+   "objectID": "49778008",
+   "selftext": "",
+   "title": "Show HN: Three genlocked RP2350B make a console \u2013 3k sprite pixels per line)",
+   "url": "https://www.papydeck.eu/"
+  },
+  {
+   "created_at": "2026-09-20T17:18:15Z",
+   "objectID": "49777820",
+   "selftext": "",
+   "title": "Show HN: MidiSlayer, a desktop sight-reading trainer for MIDI keyboards",
+   "url": "https://midislayer.com/"
+  },
+  {
+   "created_at": "2026-09-20T17:07:03Z",
+   "objectID": "49777691",
+   "selftext": "",
+   "title": "Show HN: Jev filters large HN discussions",
+   "url": "https://www.hazumi.news/best"
+  },
+  {
+   "created_at": "2026-09-20T17:02:20Z",
+   "objectID": "49777643",
+   "selftext": "",
+   "title": "Show HN: TypeFerry \u2013 Typed RPC, real-time data, and React from one contract",
+   "url": "https://github.com/leonardoventurini/typeferry"
+  },
+  {
+   "created_at": "2026-09-20T16:51:26Z",
+   "objectID": "49777539",
+   "selftext": "Hello HN! I&#x27;m relaunching Radius [1] - far too long after the original Show HN [2] (I&#x27;ll blame the day job for that). Radius started out from my frustration with not knowing what was going on around me. The initial plan was to &quot;show all and every type of event&quot; from big to small, but over time I narrowed the focus to communities, groups, events, and helping people connect through them. The initial Show HN gave me 150+ comments (surprising, looking back, given how terrible the plain Bootstrap UI was...) with a huge amount of useful feedback and feature requests. I&#x27;ve spent the time since then working through that, along with additional requests from groups using Radius, and it finally feels ready for a proper relaunch. I&#x27;ve also recently added &quot;Activities&quot; [3] - which are lightweight events, independent of groups, intended to help people find others to do things with - for example: &gt; John is going for a cycle and a coffee in New York at 10am People can join and vote for a time that works for them. I&#x27;ve got a bunch of ideas for where to go next with this, including things like open sourcing and federation, but those are for another day! Any feedback would be greatly appreciated! P.S. it&#x27;s built with Ruby on Rails, for those interested. I highly suspect it would have taken me 2 more years to get to this point without Rails! [1] https:&#x2F;&#x2F;radius.to&#x2F; [2] https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=40717398 [3] https:&#x2F;&#x2F;radius.to&#x2F;documentation&#x2F;activities&#x2F;post-an-activity",
+   "title": "Show HN: Radius \u2013 A Meetup.com Alternative",
+   "url": "https://radius.to/"
+  },
+  {
+   "created_at": "2026-09-20T16:36:43Z",
+   "objectID": "49777425",
+   "selftext": "I built A1Lab to solve the distraction and massive ad problems like greekforgreek and w3schools. What we offer: Structured Courses with simple English and Real life Analogoy Interactive code editor to run the code as well as you run your project. Built in community forum for instances discussion Would love to get your feedback and suggesstions!",
+   "title": "Show HN: A1Lab \u2013 Ad free Learning platform with interactive editor and forum",
+   "url": "https://a1lab.tech/"
+  },
+  {
+   "created_at": "2026-09-20T16:10:17Z",
+   "objectID": "49777204",
+   "selftext": "",
+   "title": "Show HN: Autopoiesis: Concept for AI platforms shipped with repos",
+   "url": "https://jakobbr.eu/2026/09/20/autopoiesis-concept-for-repos-bringing-their-own-preconfigured-ai-frontend/"
+  },
+  {
+   "created_at": "2026-09-20T16:07:23Z",
+   "objectID": "49777181",
+   "selftext": "Audit Trail to make EU AI ACT 12,26 And 50 Compliant Agentic Ai Systems",
+   "title": "Show HN: OpensourceDB Tamper-evident,checksum-backed decision and session replay",
+   "url": "https://github.com/ZIZKA-AI-SL/ZizkaDB"
+  },
+  {
+   "created_at": "2026-09-20T16:01:48Z",
+   "objectID": "49777136",
+   "selftext": "Hi HN! My wife and I got deep into our family genealogy and wanted to map out all our relatives - but keep the data on our own Macs instead of uploading it to a genealogy service. Nothing we found did that, so we built Swarm, a native macOS app in Swift. It&#x27;s built on GEDCOM 5.5.1, the universal genealogy file standard, so your tree exports cleanly to other ancestry apps if you ever want out. Example trees of famous historical families are included to play with. Features: multiple ancestry views (tree, fan, world map), media files, GEDCOM import&#x2F;export, PDF export, tree merging, and kinship naming. Fully open source, no AI in the app, no internet connection required, no account required. Would appreciate any feedback!",
+   "title": "Show HN: Swarm, an offline family tree app for macOS",
+   "url": "https://github.com/samoilev/swarm"
+  },
+  {
+   "created_at": "2026-09-20T15:57:54Z",
+   "objectID": "49777098",
+   "selftext": "Helloooo, I&#x27;m a big fan of cognitive games like Human Benchmark and brain games in general. I&#x27;m also a big fan of Trackmania&#x27;s leaderboard system, where you can compete globally or by continent, country, region, etc. So I thought, why not combine the two? I ended up building Human Rank, a collection of 10 games with global and regional leaderboards. I&#x27;d love to get some feedback and also compete with you guys if you want :) I&#x27;m thinking of creating a discord as well if there are people linking the same things (don&#x27;t know if it&#x27;s a good idea tho) Max.",
+   "title": "Show HN: I wanted Human Benchmark with global leaderboards, so I built it",
+   "url": "https://humanrank.app/"
+  },
+  {
+   "created_at": "2026-09-20T15:52:40Z",
+   "objectID": "49777057",
+   "selftext": "",
+   "title": "Show HN: jevc \u2013 compile policy prompts into deterministic verdict programs",
+   "url": "https://github.com/doronp/jevc"
+  },
+  {
+   "created_at": "2026-09-20T15:46:12Z",
+   "objectID": "49776995",
+   "selftext": "",
+   "title": "Show HN: StoreReady, which AI app builders clear App Store review",
+   "url": "https://storeready.thecompound.tech"
+  },
+  {
+   "created_at": "2026-09-20T15:37:30Z",
+   "objectID": "49776910",
+   "selftext": "Hey all! I&#x27;ve been building Ifso.io, it&#x27;s a personal finance simulator that lets you configure and play out life decisions. The main philosophy that I built Ifso around is decision-making. I personally wanted to see what it would look like if I made some key financial decisions (ex: what would it look like if I paid extra on my mortgage principal for just a few years versus putting that money into taxable investments). The existing tools were a bit frustrating however, I felt like I wanted to just tell the simulators &quot;here&#x27;s what I want to do, how does it end up for me?&quot;, but none of the tools really allowed for that. They felt a bit over-complicated for something that I felt should be a bit more straightforward, which is why I ended up building Ifso out. You start off with entering where your finances are right now, and you configure your plan by listing out your various decisions to see how it all plays out and if your financial plan works or not. The list of decisions you can make could include the more obvious things like retiring, buying a home, upgrading your car, etc. You can also simulate what it&#x27;s like to convert a property into a rental or retiring early and relying on your taxable accounts to carry you to retirement age. I also wanted to make it easy to turn certain &quot;knobs&quot;, so if you want to update your income, retirement or investment contributions, extra principal payments, etc, you can easily do so by just updating the contribution numbers for a given year and the simulator carries it forward from that point onwards. Behind the scenes the simulation engine runs through all of the math for you, this includes income taxes, capital gains taxes if you withdraw from a taxable account, retirement account withdrawals, loan amortization schedules (and how extra principal payments might change that), and so on. You can also run Monte Carlo simulations to stress test plans, and create multiple scenarios to compare them si",
+   "title": "Show HN: Ifso.io \u2013 Personal finance simulator with no sign up required",
+   "url": "https://ifso.io/try"
+  },
+  {
+   "created_at": "2026-09-20T15:33:32Z",
+   "objectID": "49776873",
+   "selftext": "",
+   "title": "Show HN: AI Hack Watch - timeline and dataset of hacking incidents(JSON/RSS)",
+   "url": "https://aihackwatch.com"
+  },
+  {
+   "created_at": "2026-09-20T15:28:20Z",
+   "objectID": "49776828",
+   "selftext": "Hey HN. I made this little app, because I missed Compiz but also because I wanted a way to switch between tabs as well as my windows. Around 2008 a Linux desktop could spin your windows around a cube and flip through them like cards, and so far I have not seen anything like that on Mac. I also tried a bunch of different Command-Tab alternatives like AltTab, but so far they always lacked the following things: a live visual preview of windows and some kind of way to switch and search between individual browser tabs. So I built a simple prototype and refined it over the last two months. It goes like this: press a shortcut and every open window shows up as a 3D card, in one of seven arrangements. Browser tabs get their own cards as well and you can flick through each one. Hitting space makes the search come up so you can type a few letters and it finds the window or tab. Fuzzy searching is implemented as well. I also added a quick Option + ` (key above tab) to instantly switch to the last window without any UI coming up, because I do this a lot. For the curious: Swift and Metal, window pictures come from ScreenCaptureKit and it only captures while the switcher is open, nothing runs in the background. Browser tab support is done through the accesibility strip. Apple Silicon, macOS 14+ for now. It has a seven day trial with all features, no account, no telemtry, no subscription or marketing bs. One time purchase, $12.99 during launch, $19.99 after. 14-day money back guarantee. Very curios what you guys think :)",
+   "title": "Show HN: A 3D Mac window switcher with browser tab support and search",
+   "url": "https://betterwindowswitcher.com"
+  },
+  {
+   "created_at": "2026-09-20T15:28:13Z",
+   "objectID": "49776827",
+   "selftext": "",
+   "title": "Show HN: Real Jev decisions on a simulated robot fleet \u2013 $24.57 per million",
+   "url": "https://github.com/robokrunch/jev-physical-ai"
+  },
+  {
+   "created_at": "2026-09-20T15:26:44Z",
+   "objectID": "49776813",
+   "selftext": "",
+   "title": "Show HN: Simple Mass Downloader \u2013 Bulk Download Files in Chrome",
+   "url": "https://www.simplemassdownloader.com"
+  },
+  {
+   "created_at": "2026-09-20T15:13:44Z",
+   "objectID": "49776675",
+   "selftext": "",
+   "title": "Show HN: Chesslm \u2013 Tiny chess model trained on Stockfish",
+   "url": "https://github.com/skorotkiewicz/chesslm"
+  },
+  {
+   "created_at": "2026-09-20T15:09:56Z",
+   "objectID": "49776636",
+   "selftext": "I use it as a proxy for high consumer demand areas in India. Note: I did not create this.",
+   "title": "Show HN: Quick commerce coverage map of India",
+   "url": "https://darkstoremap.in/"
+  },
+  {
+   "created_at": "2026-09-20T15:05:46Z",
+   "objectID": "49776584",
+   "selftext": "",
+   "title": "Show HN: Wattai.dev \u2013 Free Decision Intelligence",
+   "url": "https://wattai.dev/"
+  },
+  {
+   "created_at": "2026-09-20T15:04:17Z",
+   "objectID": "49776570",
+   "selftext": "",
+   "title": "Show HN: I got Claude Code and Codex to argue about my code",
+   "url": "https://github.com/chen-985211/cleancode"
+  },
+  {
+   "created_at": "2026-09-20T14:59:10Z",
+   "objectID": "49776523",
+   "selftext": "",
+   "title": "Show HN: A competition for small neural networks that play strategy games",
+   "url": "https://tinybrains.dev"
+  },
+  {
+   "created_at": "2026-09-20T14:57:38Z",
+   "objectID": "49776507",
+   "selftext": "",
+   "title": "Show HN: Jev Slop Filter for X and LinkedIn",
+   "url": "https://github.com/adamnroman/slop-filter"
+  },
+  {
+   "created_at": "2026-09-20T14:52:23Z",
+   "objectID": "49776459",
+   "selftext": "",
+   "title": "Show HN: Preuve AI, stress-test your startup idea before you build",
+   "url": "https://preuve.ai"
+  }
+ ],
+ "provenance": {
+  "fetched_at_utc": "2026-09-20T19:57:47Z",
+  "n": 40,
+  "note": "dev-time calibration sample vendored as fixture; the forecaster itself never touches the network (design law 5)",
+  "source": "https://hn.algolia.com/api/v1/search_by_date?tags=show_hn&hitsPerPage=40"
+ }
+}
