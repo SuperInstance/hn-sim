@@ -29,13 +29,17 @@ FIXTURE_SHA256 = "e1a3f59d06f2bab223108a806aba9924224550e6eb832a887982f87a0b4890
 # patterns recalibrated to the genre. front_page_regular's tautological
 # "Show HN" trigger removed (tripped the generic tripwire once titles matched).
 # Pins below are the DELIBERATELY re-based recalibration numbers.
+# Recalibration #2 (2026-09-21): skeptic's access-claim trigger split — bare
+# "free" moved to a weaker price-claim trigger with ad-free/ad free excluded
+# (it misfired on price-free/ad-free titles; A1Lab was a pure misfire post,
+# so skeptic evidence posts drop 12→11; coverage_any_persona unchanged at 24).
 BASELINE_COVERAGE_SHARE = 0.6
 BASELINE_POSTS_WITH_EVIDENCE = {
     "domain_expert": 10,
     "front_page_regular": 8,
     "maker": 7,
     "security_reader": 7,
-    "skeptic": 12,
+    "skeptic": 11,
     "tired_dev": 5,
 }
 
@@ -63,3 +67,38 @@ def test_no_generic_triggers() -> None:
     # Goodhart tripwire: a trigger firing on >50% of the sample carries no
     # information. Baseline: none. Keep it none.
     assert run(FIXTURE)["generic_triggers_over_half"] == {}
+
+
+def test_access_claim_split() -> None:
+    # Recalibration #2 (2026-09-21): skeptic's access-claim trigger used to
+    # include bare "free", which misfired on price-free and ad-free claims
+    # ("Ad free Learning platform", "a free subscription tracker" —
+    # price/adjacency claims, not access claims). The trigger was split:
+    #   access claim  = open[- ]?source | no sign ?up | no account  (w 0.10)
+    #   price claim   = free, with "ad free"/"ad-free" excluded   (w 0.06)
+    # Verified against the real pinned sample: 3 of the 7 posts the old
+    # combined trigger fired on were non-access uses of "free".
+    import json
+    import re
+
+    posts = json.loads(FIXTURE.read_text())["posts"]
+    access = re.compile(r"\b(?:open[- ]?source|no sign ?up|no account)\b", re.I)
+    price = re.compile(r"(?<!ad[- ])\bfree\b", re.I)
+
+    def text_of(p: dict) -> str:
+        return " ".join([p.get("title") or "", p.get("selftext") or ""])
+
+    ad_free_posts = [p for p in posts if re.search(r"ad[- ]free", text_of(p), re.I)]
+    assert ad_free_posts, "expected the ad-free Show-HN post in the pinned sample"
+    for p in ad_free_posts:
+        assert not access.search(text_of(p)), (
+            "access-claim trigger must not fire on ad-free claims: "
+            + (p.get("title") or "")
+        )
+        assert price.search(text_of(p)) is None, (
+            "price trigger must also exclude ad-free claims: " + (p.get("title") or "")
+        )
+
+    # And the split must not weaken genuine access claims on the sample.
+    genuine = [p for p in posts if access.search(text_of(p))]
+    assert len(genuine) == 4, f"expected 4 genuine access-claim posts, got {len(genuine)}"
