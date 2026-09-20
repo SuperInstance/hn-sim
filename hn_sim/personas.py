@@ -55,7 +55,13 @@ class Variant:
         for doc in surface.docs:
             for t in self.trigger_patterns:
                 rx = re.compile(t["pattern"], re.IGNORECASE)
+                not_if = t.get("not_if")
+                not_rx = re.compile(not_if, re.IGNORECASE) if not_if else None
                 for m in rx.finditer(doc.text):
+                    if not_rx is not None:
+                        window = doc.text[max(0, m.start() - 16):m.start()]
+                        if not_rx.search(window):
+                            continue  # negated context, e.g. "no telemetry"
                     section = doc.section_for_offset(m.start())
                     quote = _quote(doc.text, m.start(), m.end())
                     evidence.append(
@@ -105,7 +111,14 @@ class Persona:
 def _quote(text: str, start: int, end: int, radius: int = 60) -> str:
     lo = max(0, start - radius)
     hi = min(len(text), end + radius)
-    snippet = text[lo:hi].replace("\n", " ").strip()
+    # snap to line boundaries so quotes never straddle headings
+    nl = text.find("\n", end, hi)
+    if nl != -1:
+        hi = nl
+    pl = text.rfind("\n", lo, start)
+    if pl != -1:
+        lo = pl + 1
+    snippet = text[lo:hi].strip()
     return snippet if len(snippet) <= 140 else snippet[:137] + "..."
 
 

@@ -11,7 +11,7 @@
       "trigger_patterns": [
         {"pattern": "no telemetry|zero (telemetry|tracking|analytics)|telemetry[- ]free", "weight": 0.26, "label": "makes the no-telemetry claim where it can be quoted"},
         {"pattern": "local-?first|offline[- ]only|works offline|no account", "weight": 0.20, "label": "works without a phone-home"},
-        {"pattern": "telemetry|analytics|usage (data|statistics)|phone ?home", "weight": -0.30, "label": "ships telemetry — says so or hides it"},
+        {"pattern": "telemetry|analytics|usage (data|statistics)|phone ?home", "weight": -0.30, "label": "ships telemetry — says so or hides it", "not_if": "(no|zero|without|non|free of)[- ]?$"},
         {"pattern": "api key|sign up|account required|cloud sync", "weight": -0.18, "label": "needs a server-side identity to function"},
         {"pattern": "reproducible build|deterministic build|sbom|supply ?chain", "weight": 0.20, "label": "takes supply chain seriously"},
         {"pattern": "audit(ed)? (by|report)|security (review|audit)", "weight": 0.16, "label": "shows an audit instead of vibes"}
