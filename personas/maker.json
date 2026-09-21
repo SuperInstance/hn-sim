@@ -1,0 +1,78 @@
+{
+  "id": "maker",
+  "name": "The Maker",
+  "stance": "Only respects Show HN with a demo. Proof of existence or it didn't happen.",
+  "reach_scale": 1.1,
+  "variants": [
+    {
+      "id": "maker-v1",
+      "note": "wants to touch the thing in the next ninety seconds",
+      "base_propensity": 0.36,
+      "trigger_patterns": [
+        {"pattern": "\\bdemo\\b|live demo|try (it|now)|playground", "weight": 0.26, "label": "something I can poke right now"},
+        {"pattern": "asciinema|\\bgif\\b|screen ?cast|screen recording", "weight": 0.22, "label": "proof of existence in moving pictures"},
+        {"pattern": "(npm|pip|cargo|brew|apt) install", "weight": 0.18, "label": "one command from running"},
+        {"pattern": "screenshots?", "weight": 0.12, "label": "at least shows the face of it"},
+        {"pattern": "coming soon|in development|pre-?launch", "weight": -0.30, "label": "announced, not shipped"},
+        {"pattern": "case stud|testimonial", "weight": -0.10, "label": "social proof standing in for a demo"}
+      ],
+      "kill_phrase_patterns": ["screenshots? (coming|to come|soon)", "demo unavailable", "video coming"],
+      "comment_templates": [
+        "Rule is simple: demo or it didn't happen. {file} §{section}: \"{quote}\" — {label}. {verdict_phrase_cap}.",
+        "Ninety-second test: can I run this before my coffee cools? {file} §{section} (\"{quote}\") {label}.",
+        "{file} §{section}: \"{quote}\". {label_cap}. That's the demo check done."
+      ],
+      "kill_comment_template": "Show HN without a demo is a press release with extra steps. Come back when it exists.",
+      "verdict_phrase_up": "Exists, runs, upvoted",
+      "verdict_phrase_down": "Does not exist yet"
+    },
+    {
+      "id": "maker-v2",
+      "note": "judges the build quality from the README's seams",
+      "base_propensity": 0.34,
+      "trigger_patterns": [
+        {"pattern": "quick(start)?|getting started|5 minutes", "weight": 0.20, "label": "respects the reader's evening"},
+        {"pattern": "make |just run|single command|one command", "weight": 0.16, "label": "low friction to first output"},
+        {"pattern": "docker (run|compose)|container", "weight": 0.10, "label": "batteries shipped"},
+        {"pattern": "architect(ure)? diagram|how it works", "weight": 0.14, "label": "shows the machine, not just the paint"},
+        {"pattern": "compile|build (instructions?|from source)|toolchain", "weight": -0.08, "label": "the first hour is a build fight"},
+        {"pattern": "contribute|contributing|good first issue", "weight": 0.08, "label": "welcomes hands on the work"}
+      ],
+      "kill_phrase_patterns": ["works on my machine", "you wouldn't understand the setup"],
+      "comment_templates": [
+        "Seam check on {file} §{section}: \"{quote}\" — {label}. Makers can feel the joinery. {verdict_phrase_cap}.",
+        "How fast is idea-to-running? {file} §{section}: \"{quote}\" ({label}). {verdict_phrase_cap}.",
+        "{file} §{section}: \"{quote}\". {label_cap}. That's the maker's read."
+      ],
+      "kill_comment_template": "'Works on my machine' is a build failure with confidence. Fix the build, then post.",
+      "verdict_phrase_up": "I could build on this tonight",
+      "verdict_phrase_down": "I would spend tonight building it, not using it"
+    },
+    {
+      "id": "maker-v3",
+      "note": "only respects things they couldn't trivially make themselves",
+      "base_propensity": 0.33,
+      "trigger_patterns": [
+        {"pattern": "hand-?(made|built|rolled)|from scratch|wrote my own|custom (engine|kernel|parser)", "weight": 0.20, "label": "real craft visible in the choices"},
+        {"pattern": "(why|how) (I|we) built|design (doc|decisions?|notes?)", "weight": 0.16, "label": "shares the workshop, not just the product"},
+        {"pattern": "wrapper around|uses OpenAI|just calls", "weight": -0.24, "label": "an API call in a trench coat"},
+        {"pattern": "prototype|v0|alpha|mvp", "weight": -0.06, "label": "honest about being early"},
+        {"pattern": "benchmark|profiled|flame ?graph|perf", "weight": 0.14, "label": "measured its own craft"},
+        {"pattern": "show ?hn:? .*(with|in) (a )?(demo|gif|video)", "weight": 0.18, "label": "title promises proof and the README keeps the promise"}
+      ],
+      "kill_phrase_patterns": ["just a proof of concept", "threw this together", "anyone could build this"],
+      "comment_templates": [
+        "Craft check: {file} §{section} — \"{quote}\". {label_cap}. {verdict_phrase_cap}.",
+        "Would I learn something building this? {file} §{section} (\"{quote}\"): {label}. {verdict_phrase_cap}.",
+        "{file} §{section}: \"{quote}\". {label_cap}. The workshop is the product."
+      ],
+      "kill_comment_template": "'Threw this together' + no demo = I could throw it together too. Why is it on my screen?",
+      "verdict_phrase_up": "Upvoted for the craft",
+      "verdict_phrase_down": "Nothing here I couldn't assemble in an afternoon"
+    }
+  ],
+  "missing_advice": [
+    {"if_absent": ["demo", "gif", "asciinema", "screenshot", "try"], "advice": "Add a demo — gif, asciinema, or live URL — in the first screen. The Maker's rule: no demo, no existence."},
+    {"if_absent": ["install", "quickstart", "getting started"], "advice": "Give the one-liner install. If it takes a wiki to run, it doesn't run."}
+  ]
+}

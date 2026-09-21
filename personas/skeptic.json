@@ -1,0 +1,79 @@
+{
+  "id": "skeptic",
+  "name": "The Skeptic",
+  "stance": "Checks the repo before upvoting. Every claim is guilty until grepped.",
+  "reach_scale": 0.9,
+  "variants": [
+    {
+      "id": "skeptic-v1",
+      "note": "reads the code before believing the README",
+      "base_propensity": 0.32,
+      "trigger_patterns": [
+        {"pattern": "\\bno tests?\\b|without tests|tests? (are )?(missing|absent)", "weight": -0.28, "label": "admits there are no tests"},
+        {"pattern": "\\bbenchmark(s|ed)?\\b[^.]*\\d", "weight": 0.22, "label": "claims a benchmark with actual numbers"},
+        {"pattern": "\\bTODO\\b|FIXME", "weight": -0.12, "label": "ships TODOs in the shipped surface"},
+        {"pattern": "reproducible|deterministic (seed|build|output)", "weight": 0.18, "label": "promises reproducibility"},
+        {"pattern": "ci(/?cd)? (badge|passing|green)|github actions", "weight": 0.15, "label": "points at continuous integration"},
+        {"pattern": "revolutionary|cutting-edge|seamless|blazing(ly)? fast|game-?chang", "weight": -0.20, "label": "reaches for marketing adjectives instead of evidence"},
+        {"pattern": "\\bfaster than\\b", "weight": -0.10, "label": "claims superiority without a baseline in sight"}
+      ],
+      "kill_phrase_patterns": ["just a (thin )?wrapper", "yet another", "thin veneer"],
+      "comment_templates": [
+        "Opened the repo before deciding. {file} §{section}: \"{quote}\" — {label}. That's the whole story for me.",
+        "I don't upvote READMEs, I upvote repos. {file} §{section} (\"{quote}\") is why this one {verdict_phrase}.",
+        "{file} §{section}: \"{quote}\". {label_cap}. Verified claims get my vote; this {verdict_phrase}."
+      ],
+      "kill_comment_template": "Clicked through. It's a wrapper around someone else's engine with a new coat of paint. Pass.",
+      "verdict_phrase_up": "earns the upvote",
+      "verdict_phrase_down": "does not"
+    },
+    {
+      "id": "skeptic-v2",
+      "note": "counts LoC and CI badges",
+      "base_propensity": 0.30,
+      "trigger_patterns": [
+        {"pattern": "test(s| coverage)?[: ]+(\\d+|\\d{2,}|100%)", "weight": 0.24, "label": "states a concrete test count"},
+        {"pattern": "coverage", "weight": 0.14, "label": "mentions coverage at all"},
+        {"pattern": "(no|zero) dependencies|dependency-?free|stdlib only", "weight": 0.16, "label": "keeps the dependency attack surface honest"},
+        {"pattern": "\\bvaporware\\b|coming soon|roadmap", "weight": -0.22, "label": "sells the roadmap, not the thing"},
+        {"pattern": "proven|production-grade|battle-?tested", "weight": -0.14, "label": "asserts maturity without a receipt"},
+        {"pattern": "methodolog|repro steps?|how (we|to) (measured|bench)", "weight": 0.20, "label": "shows how the numbers were made"}
+      ],
+      "kill_phrase_patterns": ["trust me", "believe me", "just try it"],
+      "comment_templates": [
+        "Count me skeptical until {file} §{section} backs it up. \"{quote}\" — {label}.",
+        "The receipt check: {file} §{section} says \"{quote}\" ({label}). That's what I vote on.",
+        "Looked for receipts in {file}. {section}: \"{quote}\". {label_cap}. {verdict_phrase_cap}."
+      ],
+      "kill_comment_template": "\"Trust me\" is doing a lot of work in this thread. Show the artifact or stop posting.",
+      "verdict_phrase_up": "The receipts are here",
+      "verdict_phrase_down": "No receipts, no vote"
+    },
+    {
+      "id": "skeptic-v3",
+      "note": "hunts for the exit criteria of every claim",
+      "base_propensity": 0.34,
+      "trigger_patterns": [
+        {"pattern": "fail(ed|s)? (loudly|fast)|no silent failures", "weight": 0.20, "label": "commits to failing visibly"},
+        {"pattern": "warrant(y|ies)|guarantee", "weight": 0.12, "label": "offers a guarantee"},
+        {"pattern": "known (issues|limitations)|caveats?", "weight": 0.18, "label": "lists its own limitations — rare and precious"},
+        {"pattern": "\\bTODO\\b|not implemented|unimplemented", "weight": -0.18, "label": "leaves the gap list in the headline surface"},
+        {"pattern": "backed by|powered by .*(research|science)", "weight": -0.16, "label": "borrows authority instead of demonstrating it"},
+        {"pattern": "source[: ]+available|git (clone|repo|hub)", "weight": 0.14, "label": "makes the source one click away"}
+      ],
+      "kill_phrase_patterns": ["secret sauce", "proprietary algorithm", "can't disclose"],
+      "comment_templates": [
+        "Claims in {file} §{section} (\"{quote}\") need an exit criterion. {label_cap} — that {verdict_phrase}.",
+        "What would make me wrong about this? {file} §{section}: \"{quote}\". {label_cap}.",
+        "My vote hinges on {file} §{section}: \"{quote}\" ({label}). {verdict_phrase_cap}."
+      ],
+      "kill_comment_template": "A 'proprietary algorithm' in a Show HN is a black box asking for upvotes. Hard pass.",
+      "verdict_phrase_up": "clears my bar",
+      "verdict_phrase_down": "stays at gray"
+    }
+  ],
+  "missing_advice": [
+    {"if_absent": ["test", "ci", "coverage"], "advice": "State a test count or show a CI badge. The Skeptic upvotes what can be verified in one click."},
+    {"if_absent": ["limitation", "caveat", "known issue"], "advice": "Add a 'Known limitations' section. Naming your own gaps is the cheapest credibility on Hacker News."}
+  ]
+}

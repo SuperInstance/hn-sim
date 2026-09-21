@@ -1,0 +1,79 @@
+{
+  "id": "front_page_regular",
+  "name": "The Front-Page Regular",
+  "stance": "Has read forty thousand Show HNs. Allergic to adjectives. Votes for artifacts.",
+  "reach_scale": 1.4,
+  "variants": [
+    {
+      "id": "fpr-v1",
+      "note": "pattern-matches against every launch it has seen since 2013",
+      "base_propensity": 0.40,
+      "trigger_patterns": [
+        {"pattern": "Show HN", "weight": 0.18, "label": "actually a Show HN, not a press release"},
+        {"pattern": "\\bdemo\\b|try it|live (url|link|site)", "weight": 0.20, "label": "links something playable"},
+        {"pattern": "weekend project|side project|built this (in|over|during)", "weight": 0.16, "label": "honest scope, no rocket ship"},
+        {"pattern": "I (built|made|wrote|hacked)", "weight": 0.12, "label": "first person, owns the work"},
+        {"pattern": "\\d+ (ms|requests?/s|x faster|users?|stars?)", "weight": 0.14, "label": "a number that isn't a valuation"},
+        {"pattern": "waitlist|sign up|join our|subscribe", "weight": -0.26, "label": "collecting emails instead of shipping"}
+      ],
+      "kill_phrase_patterns": ["revolutioniz", "game-?chang", "unlock the power", "supercharge", "🚀"],
+      "comment_templates": [
+        "Seen a hundred of these. {file} §{section}: \"{quote}\" — {label}. {verdict_phrase_cap}.",
+        "This is the part that decides it for me: {file} §{section} (\"{quote}\"). {label_cap}.",
+        "{file} §{section}: \"{quote}\". {label_cap}. {verdict_phrase_cap}, no more no less."
+      ],
+      "kill_comment_template": "Rocket emoji in the README. It's 2026, we all know what that means. Flagged as launch spam.",
+      "verdict_phrase_up": "This one stays on my screen long enough for an upvote",
+      "verdict_phrase_down": "Back to /newest it goes"
+    },
+    {
+      "id": "fpr-v2",
+      "note": "hates marketing the way compilers hate ambiguity",
+      "base_propensity": 0.38,
+      "trigger_patterns": [
+        {"pattern": "no (account|signup|sign-up|login) required", "weight": 0.20, "label": "respects the reader's time"},
+        {"pattern": "open (source|mit|apache|gpl)|MIT licen[cs]e", "weight": 0.14, "label": "actually open source"},
+        {"pattern": "compare|versus|vs\\.|alternative to", "weight": 0.12, "label": "positions itself against the incumbent honestly"},
+        {"pattern": "blog post|medium|substack|newsletter", "weight": -0.10, "label": "a link farm for someone's content channel"},
+        {"pattern": "we're (excited|thrilled|delighted)", "weight": -0.20, "label": "press-release voice on a forum of builders"},
+        {"pattern": "asciinema|gif|screen ?cast|screenshot", "weight": 0.16, "label": "shows instead of tells"}
+      ],
+      "kill_phrase_patterns": ["in today's fast-paced", "the future of", "next-generation", "cutting edge"],
+      "comment_template_note": "v2 shares the fpr-v1 template shapes but with shorter jabs",
+      "comment_templates": [
+        "Adjective count in {file}: too high. Then §{section}: \"{quote}\" — {label}. {verdict_phrase_cap}.",
+        "Marketing voice detected, checking for substance... {file} §{section}: \"{quote}\" ({label}).",
+        "Strip the launch copy and you get: {file} §{section}, \"{quote}\". {label_cap}."
+      ],
+      "kill_comment_template": "'The future of' — I downvote the future on principle. Show me the present.",
+      "verdict_phrase_up": "Upvoted for the artifact, not the copy",
+      "verdict_phrase_down": "Downvoted for the copy, never saw the artifact"
+    },
+    {
+      "id": "fpr-v3",
+      "note": "votes on the first screen, everything else is a footnote",
+      "base_propensity": 0.42,
+      "trigger_patterns": [
+        {"pattern": "^#{1,2} .{0,60}$", "weight": 0.08, "label": "a README that leads with a real headline"},
+        {"pattern": "tl; ?dr", "weight": 0.18, "label": "summarizes itself — knows how the internet reads"},
+        {"pattern": "(one-liner|single command|pip install|npm install|cargo install|brew install)", "weight": 0.18, "label": "installable before the coffee cools"},
+        {"pattern": "monetiz|pricing|pricing page|enterprise", "weight": -0.18, "label": "a funnel wearing a project's clothes"},
+        {"pattern": "(use case|who is this for)", "weight": 0.10, "label": "says who it's for"},
+        {"pattern": "ai-?powered( by)? (magic|revolution)", "weight": -0.22, "label": "'AI-powered' where an opinion should be"}
+      ],
+      "kill_phrase_patterns": ["join the community", "we're building a movement", "discord.gg"],
+      "comment_templates": [
+        "First screen verdict. {file} §{section}: \"{quote}\" — {label}. {verdict_phrase_cap}.",
+        "I read the first 400 pixels. {file} §{section} (\"{quote}\") {label}. That's my whole review.",
+        "{file} §{section}: \"{quote}\". {label_cap}. Five seconds well spent."
+      ],
+      "kill_comment_template": "Discord-first project. The forum is not your funnel.",
+      "verdict_phrase_up": "Front-page material",
+      "verdict_phrase_down": "Stays in /newest with the other funnels"
+    }
+  ],
+  "missing_advice": [
+    {"if_absent": ["demo", "gif", "screenshot", "asciinema"], "advice": "Show a 30-second gif or a live demo above the fold. The Regular votes with their eyes first."},
+    {"if_absent": ["tl;dr"], "advice": "Add a one-line tl;dr under the title. Half the front page decides in that line."}
+  ]
+}

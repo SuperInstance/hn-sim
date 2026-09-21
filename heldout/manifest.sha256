@@ -1,0 +1,6 @@
+# held-out persona commitment (SHA-256). Files live OUTSIDE the tree.
+# Regenerate only via tools/generate_heldout.py with the operator seed.
+e55695ea01560358ac9f477c064e38aa094aecb756b22c07a2f2f37a30508240  heldout_contrarian.json
+1f7c4c9a910f35d57e02bff678a64fdfe553510b64cfa1ee2c3447af7fe42d8c  heldout_foss_purist.json
+32a742b89a1120bbb6a54918b841bdfb2bd814bf5af916c6da42cae22245cb73  heldout_stats_pedant.json
+e01e2d0e76d668b87ba5c8b2570f9bb9fa4a1414c30de7b140556314ae94b952  heldout_vc_brain.json

@@ -1,0 +1,84 @@
+{
+  "id": "tired_dev",
+  "name": "The Tired Dev",
+  "stance": "Skims. Delivers a tl;dr verdict in five words. Has forty tabs open and no mercy left.",
+  "reach_scale": 1.2,
+  "variants": [
+    {
+      "id": "tired-v1",
+      "note": "reads the first heading and the last paragraph, guesses the middle",
+      "base_propensity": 0.30,
+      "trigger_patterns": [
+        {"pattern": "tl; ?dr", "weight": 0.24, "label": "summarizes itself — bless"},
+        {"pattern": "^#{1} .{0,60}$", "weight": 0.08, "label": "a headline that says what it is"},
+        {"pattern": "(what (it|this) is|what does it do)", "weight": 0.16, "label": "answers the only question I have"},
+        {"pattern": "in this (post|article|readme) (I|we) (will|explain)", "weight": -0.20, "label": "a lecture where an answer should be"},
+        {"pattern": "( wall|paragraphs+ of text)", "weight": -0.14, "label": "density without structure"},
+        {"pattern": "\\b(basically|simply|just) put\\b", "weight": -0.08, "label": "padding words doing padding"}
+      ],
+      "kill_phrase_patterns": ["let me explain why this matters", "in today's fast-paced world", "before we dive in"],
+      "comment_templates": [
+        "tl;dr of my skim: {file} §{section} \"{quote}\" — {label}. {verdict_phrase_cap}.",
+        "Read the first screen. {file} §{section}: \"{quote}\" ({label}). That's all I needed.",
+        "{file} §{section}, \"{quote}\". {label_cap}. Five words: {five_word_verdict}."
+      ],
+      "kill_comment_template": "'Before we dive in' — I am already drowning in tabs. Get to the point or get flagged.",
+      "verdict_phrase_up": "Kept, maybe starred",
+      "verdict_phrase_down": "Closed the tab",
+      "five_word_verdict_up": "It exists and it runs",
+      "five_word_verdict_down": "Words where software should be"
+    },
+    {
+      "id": "tired-v2",
+      "note": "forgives everything except wasting their time",
+      "base_propensity": 0.28,
+      "trigger_patterns": [
+        {"pattern": "(before|after)|⏱|time(saver| saving)|saved (me|us) \\d+", "weight": 0.16, "label": "respects the clock"},
+        {"pattern": "(why (I|we) (built|made)|motivation)", "weight": 0.10, "label": "one honest paragraph of why"},
+        {"pattern": "documentation|docs\\b", "weight": 0.12, "label": "has docs — the tired dev's love language"},
+        {"pattern": "( long )?(backstory|history|journey)( of| behind)?", "weight": -0.18, "label": "origin story above the fold"},
+        {"pattern": "table of contents|^#{2,} .{0,40}$", "weight": 0.10, "label": "skimmable structure"},
+        {"pattern": "actually,|basically,", "weight": -0.10, "label": "filler adverbs, filler project"}
+      ],
+      "kill_phrase_patterns": ["I could tell you, but", "read the docs to find out", "it's simple, really"],
+      "comment_templates": [
+        "Time check on {file} §{section}: \"{quote}\" — {label}. {verdict_phrase_cap}.",
+        "{file} §{section}: \"{quote}\". {label_cap}. My five words: {five_word_verdict}.",
+        "Skim verdict. {file} §{section} (\"{quote}\"), {label}. Moving on — {verdict_phrase}."
+      ],
+      "kill_comment_template": "'It's simple, really' followed by no working example. My five words: closed tab, flagged post.",
+      "verdict_phrase_up": "Bookmarked for the one day I need it",
+      "verdict_phrase_down": "Not today, not ever",
+      "five_word_verdict_up": "Short, real, does a thing",
+      "five_word_verdict_down": "An essay, not a tool"
+    },
+    {
+      "id": "tired-v3",
+      "note": "evaluates the emotional labor required to engage",
+      "base_propensity": 0.31,
+      "trigger_patterns": [
+        {"pattern": "(one file|single file|zero config|no config)", "weight": 0.18, "label": "low energy to adopt"},
+        {"pattern": "(verbose|verbose output|debug mode|--verbose)", "weight": 0.08, "label": "won't make me work to debug it"},
+        {"pattern": "enterprise|compliance|governance", "weight": -0.20, "label": "smells like meetings"},
+        {"pattern": "(fun|weird|hack|stupid|silly) (trick|project|idea|toy)", "weight": 0.14, "label": "honest about being a toy — toys are great"},
+        {"pattern": "monorepo|microservices|kubernetes", "weight": -0.16, "label": "the README needs infrastructure to read"},
+        {"pattern": "(copy.paste|paste this|run this)", "weight": 0.12, "label": "does the thing when I do the thing"}
+      ],
+      "kill_phrase_patterns": ["it depends on your use case", "sky is the limit", "possibilities are endless"],
+      "comment_templates": [
+        "Energy audit: {file} §{section} \"{quote}\" — {label}. {verdict_phrase_cap}.",
+        "{file} §{section}: \"{quote}\". {label_cap}. Five words: {five_word_verdict}.",
+        "Will this cost me a weekend? {file} §{section}: \"{quote}\" ({label}). {verdict_phrase_cap}."
+      ],
+      "kill_comment_template": "'The possibilities are endless' — so is my backlog. Flagged, closed, forgotten.",
+      "verdict_phrase_up": "Cheap to try, kept the tab",
+      "verdict_phrase_down": "Even reading it was expensive",
+      "five_word_verdict_up": "Cheap to try, why not",
+      "five_word_verdict_down": "This README needs a README"
+    }
+  ],
+  "missing_advice": [
+    {"if_absent": ["tl;dr", "what is"], "advice": "Answer 'what is it' in the first line. The Tired Dev gives you one sentence; spend it well."},
+    {"if_absent": ["install", "quickstart", "copy"], "advice": "Make the first action a copy-paste. Every extra step between the reader and running it costs half your audience."}
+  ]
+}

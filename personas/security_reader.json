@@ -1,0 +1,78 @@
+{
+  "id": "security_reader",
+  "name": "The Security Reader",
+  "stance": "Assumes malice by default. Greps for telemetry before reading the pitch.",
+  "reach_scale": 0.7,
+  "variants": [
+    {
+      "id": "sec-v1",
+      "note": "reads the privacy claims against the binary",
+      "base_propensity": 0.30,
+      "trigger_patterns": [
+        {"pattern": "no telemetry|zero (telemetry|tracking|analytics)|telemetry[- ]free", "weight": 0.26, "label": "makes the no-telemetry claim where it can be quoted"},
+        {"pattern": "local-?first|offline[- ]only|works offline|no account", "weight": 0.20, "label": "works without a phone-home"},
+        {"pattern": "telemetry|analytics|usage (data|statistics)|phone ?home", "weight": -0.30, "label": "ships telemetry — says so or hides it", "not_if": "(no|zero|without|non|free of)[- ]?$"},
+        {"pattern": "api key|sign up|account required|cloud sync", "weight": -0.18, "label": "needs a server-side identity to function"},
+        {"pattern": "reproducible build|deterministic build|sbom|supply ?chain", "weight": 0.20, "label": "takes supply chain seriously"},
+        {"pattern": "audit(ed)? (by|report)|security (review|audit)", "weight": 0.16, "label": "shows an audit instead of vibes"}
+      ],
+      "kill_phrase_patterns": ["encrypts? your data (in|at) (our|the) cloud", "we (never|don't) sell your data", "trust us with"],
+      "comment_templates": [
+        "Grep first, read second. {file} §{section}: \"{quote}\" — {label}. {verdict_phrase_cap}.",
+        "Security posture check: {file} §{section} (\"{quote}\"). {label_cap}. {verdict_phrase_cap}.",
+        "Before anyone upvotes: {file} §{section} — \"{quote}\". {label_cap}."
+      ],
+      "kill_comment_template": "'Trust us with your data' is not a security model, it's a confession that you don't have one.",
+      "verdict_phrase_up": "This one gets the careful upvote",
+      "verdict_phrase_down": "Hard no from security"
+    },
+    {
+      "id": "sec-v2",
+      "note": "counts the dependency tree and the network calls",
+      "base_propensity": 0.28,
+      "trigger_patterns": [
+        {"pattern": "(single binary|one file|no dependencies|dependency-?free)", "weight": 0.20, "label": "small enough to audit at all"},
+        {"pattern": "curl \\| (sh|bash)|pip install|npm install", "weight": -0.16, "label": "pipe-to-shell install — unauthenticated code execution as a greeting"},
+        {"pattern": "checksum|signature|signed (release|binary)|gpg", "weight": 0.18, "label": "ships verifiable artifacts"},
+        {"pattern": "(sends|uploads?) (crash|usage|diagnostic) (reports?|data)", "weight": -0.26, "label": "exfiltrates diagnostics without asking"},
+        {"pattern": "threat model|adversari", "weight": 0.16, "label": "thinks about attackers at all"},
+        {"pattern": "default (secure|deny)|secure by default", "weight": 0.14, "label": "defaults lean safe"}
+      ],
+      "kill_phrase_patterns": ["military-grade encryption", "bank-level security", "unhackable"],
+      "comment_templates": [
+        "Dependency and network audit: {file} §{section} — \"{quote}\". {label_cap}. {verdict_phrase_cap}.",
+        "{file} §{section}: \"{quote}\" ({label}). That's the attack surface talking.",
+        "Reading {file} as an adversary. §{section}: \"{quote}\". {label_cap}."
+      ],
+      "kill_comment_template": "'Military-grade encryption' — the military runs on ROT13 and optimism. Instant flag.",
+      "verdict_phrase_up": "Passes my default-deny reading",
+      "verdict_phrase_down": "Would not run this on a machine I like"
+    },
+    {
+      "id": "sec-v3",
+      "note": "checks what happens when the company's mood changes",
+      "base_propensity": 0.30,
+      "trigger_patterns": [
+        {"pattern": "open source|source available|MIT|GPL|Apache", "weight": 0.18, "label": "forkable — the exit hatch exists"},
+        {"pattern": "self-?host(ed|able)?|run (it|your own) (locally|on your)", "weight": 0.20, "label": "self-hostable end to end"},
+        {"pattern": "(only|requires?) (works with|connects to) our (cloud|servers?)", "weight": -0.26, "label": "the vendor is a single point of failure by design"},
+        {"pattern": "data (export|portability|escape)|export (your|all) data", "weight": 0.14, "label": "plans for the breakup"},
+        {"pattern": "privacy (policy|first)|gdpr|ccpa", "weight": 0.06, "label": "at least mentions privacy"},
+        {"pattern": "closed source|proprietary (core|engine)", "weight": -0.18, "label": "the interesting parts are unauditable"}
+      ],
+      "kill_phrase_patterns": ["secure because we say so", "enterprise-grade trust", "your data is safe with us"],
+      "comment_templates": [
+        "Exit-hatch check on {file} §{section}: \"{quote}\" — {label}. {verdict_phrase_cap}.",
+        "Vendor-abuse scenario: {file} §{section} (\"{quote}\"). {label_cap}. {verdict_phrase_cap}.",
+        "What happens when they get acquired? {file} §{section}: \"{quote}\". {label_cap}."
+      ],
+      "kill_comment_template": "'Your data is safe with us' is a promise with no cryptographic primitive attached. No.",
+      "verdict_phrase_up": "Upvote with a self-host path",
+      "verdict_phrase_down": "Flagged: vendor-locked by architecture"
+    }
+  ],
+  "missing_advice": [
+    {"if_absent": ["telemetry", "privacy", "tracking"], "advice": "Say the telemetry posture out loud, even if it's just 'none'. Silence reads as 'we didn't check'."},
+    {"if_absent": ["threat", "security", "audit"], "advice": "One 'Security considerations' section — even two lines — converts the Security Reader from adversary to advocate."}
+  ]
+}
