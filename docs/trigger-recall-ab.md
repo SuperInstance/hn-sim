@@ -1,7 +1,7 @@
 # Trigger-Recall A/B — dev personas vs real Show-HN posts
 
 **Date:** 2026-09-21 · **Status:** calibration baseline, pinned by `tests/test_trigger_recall_ab.py`
-**Tool:** `python3 tools/trigger_recall_ab.py` · **Fixture:** `tests/fixtures/show_hn_sample.json`
+**Tool:** `python3 tools/trigger_recall_ab.py` · **Fixtures:** `tests/fixtures/show_hn_sample.json` (real, 40 posts, sha-pinned) · `tests/fixtures/synthetic_known_bad.json` (SYNTHETIC kill-probe — see "Kill-phrase capability probe" below; NOT HN data)
 
 ## Why
 
@@ -23,6 +23,29 @@ title-only otherwise. Every dev persona (held-out set stays locked) runs every
 variant's trigger patterns against every post. Count: posts with ≥1 evidence
 hit, per-trigger fire counts, kill-phrase hits, and a Goodhart tripwire (any
 trigger firing on >50% of the sample is generic noise).
+
+## Kill-phrase capability probe (synthetic, 2026-09-21)
+
+The real sample answers "do kill phrases fire on legitimate posts?" (0/40 —
+untested-not-proven, since legitimate posts can't prove a kill mechanism
+works). The companion fixture `tests/fixtures/synthetic_known_bad.json`
+answers the liveness question with 14 hand-authored posts, sha-pinned in
+`tests/test_kill_probe.py`:
+
+- **11 designed-bad posts** (wrapper/secret-sauce/trust-us/military-grade/rocket
+  emoji/fast-pitched/magic/synergy/demo-soon/PoC/orders-of-magnitude) — all
+  killed; all six personas land at least one kill (hits: domain_expert 7,
+  front_page_regular 8, maker 8, security_reader 7, skeptic 7, tired_dev 4).
+- **2 well-evidenced posts** (counted-scale, benchmarks, reproducible builds)
+  — NOT killed. Precision floor pinned.
+- **1 paraphrase post** ("another take", "a small layer over") — NOT killed.
+  Pinned finding: kill phrases are literal today; paraphrased dismissals
+  slide past. Surfaced deliberately, not silently.
+
+Honest limits, stated in the fixture's provenance block: the bad posts embed
+kill phrases verbatim (mechanism liveness, not detection subtlety), and the
+fixture is synthetic — replace with a real flagged/removed Show-HN sample
+when obtainable, then re-pin.
 
 ## Results (recalibration #1, 2026-09-21)
 
