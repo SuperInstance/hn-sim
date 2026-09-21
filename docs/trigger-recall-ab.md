@@ -105,5 +105,34 @@ Honest readings after recalibration:
 
 - Kill-phrase calibration needs a sample with known-bad posts (e.g. Show HN
   posts flagged/removed) — don't tune kills against a clean sample.
-- Watch skeptic's access-claims trigger (22.5%) on the next pinned sample.
+- Watch skeptic's access-claims trigger on the next pinned sample
+  (recalibration #2 split it; see below).
 - The held-out personas stay locked until Casey's authored triggers land.
+
+## Recalibration #2 (2026-09-21): access-claim split
+
+Watch item from recalibration #1 examined: skeptic's top trigger
+(`\b(?:free|open[- ]?source|no sign ?up|no account)\b`, 22.5%) was read
+per-firing on the pinned sample. 7 posts fired it; **3 of the 7 were
+non-access uses of "free"**: "a free subscription tracker" and
+"Free Decision Intelligence" (price-free, not access) and "Ad free Learning
+platform" (ad-free, neither). The trigger conflated three different claims.
+
+Fix shipped: trigger split in two —
+
+- **access claim** `\b(?:open[- ]?source|no sign ?up|no account)\b`
+  (weight 0.10, label unchanged): 4/40 = 10% — every firing is a genuine
+  access claim on the sample.
+- **price claim** `(?<!ad[- ])\bfree\b` (weight 0.06): 3/40 = 7.5% — bare
+  "free" with "ad free"/"ad-free" excluded. The lookbehind is `ad[- ]`
+  only; a `ad[- ]free` lookbehind overlaps the match start and silently
+  never excludes (caught in review, pinned by a test).
+
+Re-pinned numbers: skeptic evidence posts 12→11 (A1Lab was a pure misfire —
+it carried no other trigger); coverage_any_persona unchanged at 24/40 (60%);
+kills 0/40; no trigger over the 50% tripwire; new top trigger is
+`front_page_regular: I (built|made|wrote|hacked)` at 20%.
+
+Lesson: a trigger's firing RATE was the watch item, but the watch paid off
+on firing SEMANTICS — rate stayed under the tripwire while a third of the
+firings were the wrong claim. Tripwires catch over-firing, not misfiring.
