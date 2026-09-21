@@ -31,7 +31,16 @@ GENERIC_THRESHOLD = 0.5  # a trigger firing on more than half the sample is nois
 
 def post_surface(post: dict) -> Surface:
     text = post.get("selftext") or ""
-    return Surface(title=post.get("title") or "", docs=[SurfaceDoc(file="show_hn_post.md", text=text)])
+    title = post.get("title") or ""
+    # Method note (recalibration #1, 2026-09-21): the title is a first-class
+    # evidence document. 28/40 real Show-HN posts are title-only; matching the
+    # selftext alone made every receipt-checker deaf by construction on the
+    # genre's primary surface. The title leads so quotes cite it first.
+    docs = []
+    if title.strip():
+        docs.append(SurfaceDoc(file="show_hn_title.md", text=title))
+    docs.append(SurfaceDoc(file="show_hn_post.md", text=text))
+    return Surface(title=title, docs=docs)
 
 
 def run(fixture: Path = FIXTURE) -> dict:

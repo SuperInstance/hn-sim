@@ -9,7 +9,6 @@
       "note": "pattern-matches against every launch it has seen since 2013",
       "base_propensity": 0.40,
       "trigger_patterns": [
-        {"pattern": "Show HN", "weight": 0.18, "label": "actually a Show HN, not a press release"},
         {"pattern": "\\bdemo\\b|try it|live (url|link|site)", "weight": 0.20, "label": "links something playable"},
         {"pattern": "weekend project|side project|built this (in|over|during)", "weight": 0.16, "label": "honest scope, no rocket ship"},
         {"pattern": "I (built|made|wrote|hacked)", "weight": 0.12, "label": "first person, owns the work"},
