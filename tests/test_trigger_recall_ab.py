@@ -57,6 +57,29 @@ def test_recall_baseline() -> None:
     assert got == BASELINE_POSTS_WITH_EVIDENCE
 
 
+def test_top_trigger_counts_posts_not_hits() -> None:
+    # Recalibration #3 (2026-09-21): the report's top_triggers/gate counted
+    # evidence HITS, not distinct posts. "I (built|made|wrote|hacked)" read
+    # 8/40 = 20% when it actually touches 6/40 = 15% (Ifso and the Mac
+    # window switcher each carry two first-person hits). The generic-tripwire
+    # semantic is "fires on >50% of POSTS" — now computed that way.
+    report = run(FIXTURE)
+    top = report["top_triggers"][0]
+    assert top["trigger"] == "front_page_regular:I (built|made|wrote|hacked)"
+    assert top["posts"] == 6
+    assert top["hits"] == 8
+    assert top["share"] == 0.15
+    # Per-firing read (all 6 genuine first-person maker claims):
+    #   Bailout ("i made bailout for a pretty specific problem"),
+    #   Judge Jev ("I made this little game"), A1Lab ("I built A1Lab"),
+    #   Human Benchmark (title: "so I built it"), Ifso (x2, one dogfooding
+    #   narrative "if I made some key financial decisions"), Mac switcher
+    #   (x2). No misfire on the sample — this was a measurement fix, not a
+    #   persona recalibration.
+    assert all("posts" in t and "hits" in t for t in report["top_triggers"])
+    assert report["generic_triggers_over_half"] == {}
+
+
 def test_no_kill_phrase_fires_on_real_posts() -> None:
     # Baseline fact, pinned: zero kill-phrase hits on the sample. If a persona
     # edit starts killing real posts, that is a behavior change worth a human.
