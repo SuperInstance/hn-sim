@@ -53,12 +53,14 @@ def run(fixture: Path = FIXTURE) -> dict:
     trigger_posts: dict[str, set] = {}  # distinct post objectIDs per trigger pattern
     covered_posts: set[str] = set()
     kill_posts: set[str] = set()
+    post_index: dict[str, dict] = {}  # objectID -> post, for the blind-spot map
 
     for persona in personas:
         evidence_posts = 0
         kill_hits = 0
         evidence_total = 0
         for post in posts:
+            post_index[post["objectID"]] = post
             surface = post_surface(post)
             hit_any = False
             for variant in persona.variants:
@@ -83,6 +85,18 @@ def run(fixture: Path = FIXTURE) -> dict:
         }
 
     n = len(posts)
+    # Blind-spot map: posts with zero evidence from ANY persona, tracked
+    # explicitly so persona drift cannot silently rewrite the compass's blind
+    # field — a fixed blind spot changes this list, and the tests pin it.
+    blind_posts = [
+        {
+            "objectID": pid,
+            "title": post_index[pid].get("title") or "",
+            "has_selftext": bool((post_index[pid].get("selftext") or "").strip()),
+        }
+        for pid in sorted(post_index)
+        if pid not in covered_posts
+    ]
     # Goodhart tripwire is POST-based: a trigger that fires on >50% of posts
     # carries no information. (Recalibration #3 fix: this was computed on hit
     # counts, so a trigger firing twice on one post overstated its reach —
@@ -111,6 +125,12 @@ def run(fixture: Path = FIXTURE) -> dict:
             "share": round(len(covered_posts) / n, 3),
         },
         "kill_coverage": {"posts": len(kill_posts), "share": round(len(kill_posts) / n, 3)},
+        "blind_spots": {
+            "posts": len(blind_posts),
+            "title_only": sum(1 for b in blind_posts if not b["has_selftext"]),
+            "with_selftext": sum(1 for b in blind_posts if b["has_selftext"]),
+            "entries": sorted(blind_posts, key=lambda b: b["objectID"]),
+        },
         "per_persona": per_persona,
         "top_triggers": top_triggers,
         "generic_triggers_over_half": generic,
@@ -132,6 +152,9 @@ def main() -> None:
     print(f"any persona evidence: {cov['posts']}/{report['sample_size']} ({cov['share']})")
     kill = report["kill_coverage"]
     print(f"any kill phrase: {kill['posts']}/{report['sample_size']} ({kill['share']})")
+    blind = report["blind_spots"]
+    print(f"blind spots (no persona fired): {blind['posts']} "
+          f"({blind['title_only']} title-only, {blind['with_selftext']} with selftext)")
     print("\nper persona (posts with >=1 evidence hit / total evidence / kills):")
     for pid, s in sorted(report["per_persona"].items()):
         print(f"  {pid:20s} {s['posts_with_evidence']:3d}  {s['evidence_hits_total']:4d}  {s['kill_hits_total']:3d}")
