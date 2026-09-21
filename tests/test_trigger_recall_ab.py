@@ -86,6 +86,25 @@ def test_no_kill_phrase_fires_on_real_posts() -> None:
     assert run(FIXTURE)["kill_coverage"]["posts"] == 0
 
 
+def test_blind_spot_map() -> None:
+    # Blind-spot map (shipped 2026-09-21, see docs/blind-spots.md): the 16
+    # posts no persona fires any evidence on. Headline finding: ALL 16 are
+    # title-only — every post with selftext is covered after recalibrations
+    # #1-#3. The remaining blindness is structural (thin surface), not
+    # persona stance. The with_selftext==0 invariant is the real pin: if a
+    # selftext-bearing post ever lands in the blind list, persona drift made
+    # the receipt-checkers deaf again and this test must fail loudly.
+    report = run(FIXTURE)
+    blind = report["blind_spots"]
+    assert blind["posts"] == 16
+    assert blind["title_only"] == 16
+    assert blind["with_selftext"] == 0
+    assert len(blind["entries"]) == 16
+    assert all(not e["has_selftext"] for e in blind["entries"])
+    covered = report["coverage_any_persona"]["posts"]
+    assert covered + blind["posts"] == report["sample_size"]
+
+
 def test_no_generic_triggers() -> None:
     # Goodhart tripwire: a trigger firing on >50% of the sample carries no
     # information. Baseline: none. Keep it none.
